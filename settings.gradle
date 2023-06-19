@@ -1,14 +1,14 @@
 pluginManagement {
-	repositories {
-		mavenCentral()
-		gradlePluginPortal()
-		maven { url "https://repo.spring.io/release" }
-	}
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url "https://repo.spring.io/release" }
+    }
 }
 
 plugins {
-	id "com.gradle.enterprise" version "3.11.1"
-	id "io.spring.ge.conventions" version "0.0.11"
+    id "com.gradle.enterprise" version "3.11.1"
+    id "io.spring.ge.conventions" version "0.0.13"
 }
 
 include "spring-aop"
@@ -38,20 +38,20 @@ include "integration-tests"
 
 rootProject.name = "spring"
 rootProject.children.each {project ->
-	project.buildFileName = "${project.name}.gradle"
+    project.buildFileName = "${project.name}.gradle"
 }
 
 settings.gradle.projectsLoaded {
-	gradleEnterprise {
-		buildScan {
-			File buildDir = settings.gradle.rootProject.getBuildDir()
-			buildDir.mkdirs()
-			new File(buildDir, "build-scan-uri.txt").text = "(build scan not generated)"
-			buildScanPublished { scan ->
-				if (buildDir.exists()) {
-					new File(buildDir, "build-scan-uri.txt").text = "${scan.buildScanUri}\n"
-				}
-			}
-		}
-	}
+    gradleEnterprise {
+        buildScan {
+            File buildDir = settings.gradle.rootProject.getBuildDir()
+            buildDir.mkdirs()
+            new File(buildDir, "build-scan-uri.txt").text = "(build scan not generated)"
+            buildScanPublished { scan ->
+                if (buildDir.exists()) {
+                    new File(buildDir, "build-scan-uri.txt").text = "${scan.buildScanUri}\n"
+                }
+            }
+        }
+    }
 }
